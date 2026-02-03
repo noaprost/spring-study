@@ -17,7 +17,7 @@ java {
 }
 
 repositories {
-	// 필요한 것을 다운받아서 여기에 url을 넣으면 됨
+	// 필요한 라이브러리가 있다면 다운받아서 여기에 url을 넣으면 됨
 	mavenCentral()
 }
 
