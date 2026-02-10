@@ -3,6 +3,7 @@ package hello.hello_spring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -16,4 +17,11 @@ public class HelloController {
     // 리턴값과 같은 이름의 templates에 있는 .html 파일을 찾아서 타임리프 템플릿 엔진처리를 해줌
     return "hello";
   }
+
+  @GetMapping("hello-mvc")
+  public String helloMvc(@RequestParam("name") String name, Model model) {
+    model.addAttribute("name", name);
+    return "hello-template";
+  }
 }
+
