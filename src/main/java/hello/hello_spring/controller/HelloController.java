@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
@@ -22,6 +23,40 @@ public class HelloController {
   public String helloMvc(@RequestParam("name") String name, Model model) {
     model.addAttribute("name", name);
     return "hello-template";
+  }
+
+  @GetMapping("hello-string")
+  // http의 통신 프로토콜 body 구에 return 한 데이터를 직접 넣어주겠다는 의미
+  // template 과의 차이점 : view 없이도 이 문자가 그대로 내려감
+  @ResponseBody
+  public String helloString(@RequestParam("name") String name) {
+    return "hello " + name;
+  }
+
+  @GetMapping("hello-api")
+  // json으로 반환하는게 기본
+  @ResponseBody
+  public Hello helloApi(@RequestParam("name") String name) {
+    Hello hello = new Hello();
+    hello.setName(name);
+
+    // ResponseBody를 사용하면 ViewResolver 대신에 HttpMessageConverter가 동작
+    // 단순 String일 경우 StringConverter가 동작하고 json 객체일 경우 JsonConverter가 동작함
+    return hello;
+  }
+
+  static class Hello {
+    private String name;
+
+    // getter, setter를 Java Bean 규약이라고 함
+    // 프로퍼티 방식이라고도 함
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
   }
 }
 
