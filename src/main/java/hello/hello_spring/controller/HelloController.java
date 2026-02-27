@@ -35,6 +35,7 @@ public class HelloController {
 
   @GetMapping("hello-api")
   // json으로 반환하는게 기본
+  // 한글
   @ResponseBody
   public Hello helloApi(@RequestParam("name") String name) {
     Hello hello = new Hello();
@@ -59,4 +60,3 @@ public class HelloController {
     }
   }
 }
-
